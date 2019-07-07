@@ -7,9 +7,7 @@
     <div class="parent">
       <div v-for="(cube, key, index) in cubes">
             <div v-bind:class=[CubeCutoutClass] >
-              <div class="bottom">{{cube[0]}}</div>
-              <div class="back">{{cube[1]}}</div>
-              <div class="left">{{cube[4]}}</div>
+              <div v-bind:style=[left,dynamicBG(colors[cube[4]])]>{{cube[4]}}</div>
               <div class="top">{{cube[2]}}</div>
               <div class="right">{{cube[5]}}</div>
               <div class="front">{{cube[3]}}</div>
