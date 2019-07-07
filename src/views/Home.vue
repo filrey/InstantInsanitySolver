@@ -7,10 +7,12 @@
     <div class="parent">
       <div v-for="(cube, key, index) in cubes">
             <div v-bind:class=[CubeCutoutClass] >
-              <div v-bind:style=[left,dynamicBG(colors[cube[4]])]>{{cube[4]}}</div>
-              <div class="top">{{cube[2]}}</div>
-              <div class="right">{{cube[5]}}</div>
-              <div class="front">{{cube[3]}}</div>
+              <div v-bind:style="{ 'background-color': colors[cube[0]] }">{{cube[0]}}</div>
+              <div v-bind:style="{ 'background-color': colors[cube[1]] }">{{cube[1]}}</div>
+              <div v-bind:style="{ 'position': 'relative','left':'-40px','opacity': '0.6','background-color': colors[cube[4]] }">{{cube[4]}}</div>
+              <div v-bind:style="{ 'position': 'relative','top':'-37px','background-color': colors[cube[5]] }">{{cube[5]}}</div>
+              <div v-bind:style="{ 'position': 'relative','left':'40px','top':'-73px','opacity': '0.6','background-color': colors[cube[2]] }">{{cube[2]}}</div>
+              <div v-bind:style="{ 'position': 'relative','top':'-74px','background-color': colors[cube[3]] }">{{cube[3]}}</div>
             </div>
       </div>
 
@@ -31,18 +33,14 @@ export default {
   data() {
     return {
       numOfCubes: 20,
-      colors: ["red","blue","green","yellow","cyan","orange","purple","fuchsia",
+      colors: ["lavender","red","blue","green","yellow","cyan","orange","purple","fuchsia",
       "GreenYellow","Brown","Teal","Gold","White","Gray","DarkSlateGray","Black",
       "Indigo","SteelBlue","Linen","Silver",],
       cubes: ['','','','','','','','','','','','','','','','','','','',''],
       input: "1,1,2,13,8,13-7,12,5,11,1,1-4,8,1,1,15,18-19,20,3,6,1,1-14,20,1,1,11,19-2,9,1,1,2,5-1,1,1,16,17,20-1,1,11,19,3,4-1,1,17,18,1,20-9,12,1,1,11,15-5,15,16,19,1,1-1,1,10,18,1,10-1,1,12,17,7,13-6,7,3,10,1,1-6,9,1,1,5,14-12,13,1,1,16,17-1,1,4,7,15,16-4,18,8,10,1,1-9,14,1,14,1,1-2,6,1,1,3,8",
+      
+      //Css Classes
       CubeCutoutClass: ['cube'],
-
-
-      //Styles
-      styleObject: {
-        fontSize: '13px'
-      }
 
 
     }
@@ -90,29 +88,6 @@ export default {
   height: 30px;
   width: 30px;
   margin: 5px auto;
-}
-
-.top {
-  position: relative;
-  top: -37px;
-}
-
-.left {
-  position: relative;
-  left: -40px;
-  opacity: 0.4;
-}
-
-.right {
-  position: relative;
-  left: 40px;
-  top: -73px;
-  opacity: 0.4;
-}
-
-.front {
-  position: relative;
-  top: -74px;
 }
 
 </style>
