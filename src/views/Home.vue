@@ -7,12 +7,12 @@
     <div class="parent">
       <div v-for="(cube, key, index) in cubes">
             <div v-bind:class=[CubeCutoutClass] >
-              <div class="bottom">1</div>
-              <div class="back">2</div>
-              <div class="left">5</div>
-              <div class="top">3</div>
-              <div class="right">6</div>
-              <div class="front">4</div>
+              <div class="bottom">{{cube[0]}}</div>
+              <div class="back">{{cube[1]}}</div>
+              <div class="left">{{cube[4]}}</div>
+              <div class="top">{{cube[2]}}</div>
+              <div class="right">{{cube[5]}}</div>
+              <div class="front">{{cube[3]}}</div>
             </div>
       </div>
 
