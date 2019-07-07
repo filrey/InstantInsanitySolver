@@ -5,184 +5,18 @@
     <!-- <HelloWorld msg="Instant Insanity Solver"/> -->
 
     <div class="parent">
-  <div class="cube cube1">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
+      <div v-for="(cube, key, index) in cubes">
+            <div v-bind:class=[CubeCutoutClass] >
+              <div class="bottom">1</div>
+              <div class="back">2</div>
+              <div class="left">5</div>
+              <div class="top">3</div>
+              <div class="right">6</div>
+              <div class="front">4</div>
+            </div>
+      </div>
 
-  <div class="cube cube2">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-
-  <div class="cube cube3">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-
-  <div class="cube cube4">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-
-  <div class="cube cube5">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-
-  <div class="cube cube6">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  <div class="cube cube7">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  <div class="cube cube8">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube9">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube10">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube11">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube12">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube13">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube14">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube15">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube16">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube17">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube18">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube19">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-  
-    <div class="cube cube20">
-    <div class="bottom"></div>
-    <div class="back"></div>
-    <div class="left"></div>
-    <div class="top"></div>
-    <div class="right"></div>
-    <div class="front"></div>
-  </div>
-</div>
+    </div>
 
   </div>
 </template>
@@ -199,8 +33,46 @@ export default {
   data() {
     return {
       numOfCubes: 20,
+      colors: ["red","blue","green","yellow","cyan","orange","purple","fuchsia",
+      "GreenYellow","Brown","Teal","Gold","White","Gray","DarkSlateGray","Black",
+      "Indigo","SteelBlue","Linen","Silver",],
+      cubes: ['','','','','','','','','','','','','','','','','','','',''],
+      input: "1,1,2,13,8,13-7,12,5,11,1,1-4,8,1,1,15,18-19,20,3,6,1,1-14,20,1,1,11,19-2,9,1,1,2,5-1,1,1,16,17,20-1,1,11,19,3,4-1,1,17,18,1,20-9,12,1,1,11,15-5,15,16,19,1,1-1,1,10,18,1,10-1,1,12,17,7,13-6,7,3,10,1,1-6,9,1,1,5,14-12,13,1,1,16,17-1,1,4,7,15,16-4,18,8,10,1,1-9,14,1,14,1,1-2,6,1,1,3,8",
+      CubeCutoutClass: ['cube'],
+
+
+      //Styles
+      styleObject: {
+        fontSize: '13px'
+      }
+
 
     }
+  },
+  created() {
+    this.determineColorInput();
+  },
+  computed: {
+    isSolved() {
+      return false
+    }
+  },
+  methods: {
+    rotate() {
+
+    },
+    permute() {
+
+    },
+    determineColorInput(){
+      this.input = this.input.split('-');
+
+      for (let index = 0; index < this.numOfCubes; index++) {
+        this.cubes[index] = this.input[index].split(',');
+        
+      }
+    }
+    
   },
 }
 
