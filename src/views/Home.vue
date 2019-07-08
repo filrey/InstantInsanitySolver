@@ -27,16 +27,17 @@
       <button v-on:click="this.stop">Stop</button>
 
       <!-- <h1>Solution: {{this.isSolved}}</h1> -->
-      <h1>BackSolved: {{this.backSolved}}</h1>
-      <h1>BottomSolved: {{this.bottomSolved}}</h1>
-      <h1>TopSolved: {{this.topSolved}}</h1>
-      <h1>FrontSolved: {{this.frontSolved}}</h1>
+      <h1>BackSolved: {{this.solutionBoard[0]}}</h1>
+      <h1>BottomSolved: {{this.solutionBoard[1]}}</h1>
+      <h1>TopSolved: {{this.solutionBoard[2]}}</h1>
+      <h1>FrontSolved: {{this.solutionBoard[3]}}</h1>
 
 
   </div>
 </template>
 
 <script>
+import { clearInterval } from 'timers';
 // @ is an alias to /src
 
 export default {
@@ -54,9 +55,12 @@ export default {
       subArrays:['','','',''],
       input: "7,2,3,4,5,6-7,8,9,10,11,12-13,14,15,16,17,18",
       // input: "1,1,2,13,8,13-7,12,5,11,1,1-4,8,1,1,15,18-19,20,3,6,1,1-14,20,1,1,11,19-2,9,1,1,2,5-1,1,1,16,17,20-1,1,11,19,3,4-1,1,17,18,1,20-9,12,1,1,11,15-5,15,16,19,1,1-1,1,10,18,1,10-1,1,12,17,7,13-6,7,3,10,1,1-6,9,1,1,5,14-12,13,1,1,16,17-1,1,4,7,15,16-4,18,8,10,1,1-9,14,1,14,1,1-2,6,1,1,3,8",
-      
 
-
+      solutionBoard:[false,false,false,false],
+      // back: false,
+      // bottom: false,
+      // top: false,
+      // front: false,
       //Css Classes
       CubeCutoutClass: ['cube'],
 
@@ -86,12 +90,18 @@ export default {
   },
   methods: {
     start() {
-      var scrambleCube = setInterval(() => this.rotate(Math.floor(Math.random() * 3) + 1,this.cubes[Math.floor(Math.random() * this.cubes.length)]), 0);
+      this.scrambleCube = setInterval(() => this.rotate(Math.floor(Math.random() * 3) + 1,this.cubes[Math.floor(Math.random() * this.cubes.length)]), 1000);
+
+      // var scrambleCube = setInterval(function(){ 
+      //   console.log("Hello"); 
+      //   clearInterval(scrambleCube);}
+      //   , 1000);
     },
     stop(){
-      
+
     },
     rotate(key,cube) {
+      this.checkForSolution()
       console.log("rotating")
       var top = cube[0]
       var back = cube[1]
@@ -106,6 +116,7 @@ export default {
           cube[3] = cube[5]
           cube[5] = cube[1]
           cube[1] = temp
+          this.validateCubes(this.cubes)
           this.$forceUpdate();
           break;
         case 2:
@@ -114,6 +125,7 @@ export default {
           cube[3] = cube[2]
           cube[2] = cube[1]
           cube[1] = temp
+          this.validateCubes(this.cubes)
           this.$forceUpdate();          
           break;
         case 3:
@@ -122,15 +134,22 @@ export default {
           cube[5] = cube[2]
           cube[2] = cube[4]
           cube[4] = temp
+          this.validateCubes(this.cubes)
           this.$forceUpdate();          
           break;      
         default:
           break;
       }
+      
     },
     permute() {
 
 
+    },
+    checkForSolution(){
+      if (this.solutionBoard[0] &&this.solutionBoard[1]&& this.solutionBoard[2] &&this.solutionBoard[3]) {
+        alert("Solution has been found!")
+      }
     },
     allDistinct(arr){
       var arr2 = {};
@@ -158,6 +177,11 @@ export default {
       this.subArrays[1] = bottomArr.map(Number)
       this.subArrays[2] = topArr.map(Number)
       this.subArrays[3] = frontArr.map(Number)
+
+      this.solutionBoard[0] = this.allDistinct(this.subArrays[0])
+      this.solutionBoard[1] = this.allDistinct(this.subArrays[1])
+      this.solutionBoard[2] = this.allDistinct(this.subArrays[2])
+      this.solutionBoard[3] = this.allDistinct(this.subArrays[3])
 
       this.$forceUpdate();
 
