@@ -47,20 +47,22 @@ export default {
   },
   data() {
     return {
+      //Midterm 3 question
+      cubes: ['','','','','','','','','','','','','','','','','','','',''],
+      input: "1,1,2,13,8,13-7,12,5,11,1,1-4,8,1,1,15,18-19,20,3,6,1,1-14,20,1,1,11,19-2,9,1,1,2,5-1,1,1,16,17,20-1,1,11,19,3,4-1,1,17,18,1,20-9,12,1,1,11,15-5,15,16,19,1,1-1,1,10,18,1,10-1,1,12,17,7,13-6,7,3,10,1,1-6,9,1,1,5,14-12,13,1,1,16,17-1,1,4,7,15,16-4,18,8,10,1,1-9,14,1,14,1,1-2,6,1,1,3,8",
+      //All Distinct Except One
+      // cubes: ['','',''],
+      // input: "7,2,3,4,5,6-7,8,9,10,11,12-13,14,15,16,17,18",
+      //Mutando
+      // cubes: ['','','',''],
+      // input: "3,1,4,1,2,4-3,4,4,3,3,2-4,2,3,2,1,1-3,4,1,3,3,4",
       colors: ["lavender","red","blue","green","yellow","cyan","orange","purple","fuchsia",
       "GreenYellow","Brown","Teal","Gold","White","Gray","DarkSlateGray","Black",
       "Indigo","SteelBlue","Linen","Silver",],
-      // cubes: ['','','','','','','','','','','','','','','','','','','',''],
-      cubes: ['','',''],
       subArrays:['','','',''],
-      input: "7,2,3,4,5,6-7,8,9,10,11,12-13,14,15,16,17,18",
-      // input: "1,1,2,13,8,13-7,12,5,11,1,1-4,8,1,1,15,18-19,20,3,6,1,1-14,20,1,1,11,19-2,9,1,1,2,5-1,1,1,16,17,20-1,1,11,19,3,4-1,1,17,18,1,20-9,12,1,1,11,15-5,15,16,19,1,1-1,1,10,18,1,10-1,1,12,17,7,13-6,7,3,10,1,1-6,9,1,1,5,14-12,13,1,1,16,17-1,1,4,7,15,16-4,18,8,10,1,1-9,14,1,14,1,1-2,6,1,1,3,8",
 
       solutionBoard:[false,false,false,false],
-      // back: false,
-      // bottom: false,
-      // top: false,
-      // front: false,
+
       //Css Classes
       CubeCutoutClass: ['cube'],
 
@@ -90,7 +92,7 @@ export default {
   },
   methods: {
     start() {
-      this.scrambleCube = setInterval(() => this.rotate(Math.floor(Math.random() * 3) + 1,this.cubes[Math.floor(Math.random() * this.cubes.length)]), 1000);
+      this.scrambleCube = setInterval(() => this.rotate(Math.floor(Math.random() * 3) + 1,this.cubes[Math.floor(Math.random() * this.cubes.length)]), 0);
 
       // var scrambleCube = setInterval(function(){ 
       //   console.log("Hello"); 
@@ -140,7 +142,7 @@ export default {
         default:
           break;
       }
-      
+      this.checkForSolution()
     },
     permute() {
 
