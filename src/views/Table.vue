@@ -13,12 +13,12 @@
       <v-card><h1>Color Analysis</h1>
         <v-sheet><v-btn>Color</v-btn><v-btn>Pair1</v-btn><v-btn>Pair2</v-btn><v-btn>Pair3</v-btn><v-btn>Total</v-btn></v-sheet>
         <v-sheet v-for="(pair, key, index) in pair1CO">
-          <v-list-tile > 
-              <v-btn>{{key}}</v-btn> 
-              <v-btn>{{pair1CO[key]}}</v-btn> 
-              <v-btn>{{pair2CO[key]}}</v-btn>  
-              <v-btn>{{pair3CO[key]}}</v-btn>  
-              <v-btn>{{colorOccurnce[key]}}</v-btn> 
+          <v-list-tile v-if="key != 0"> 
+              <v-btn v-bind:style="{ 'background-color': colors[key] }">{{key}}</v-btn> 
+              <v-btn v-bind:class="{ isZero: isZero([pair1CO[key]]) }">{{pair1CO[key]}}</v-btn> 
+              <v-btn v-bind:class="{ isZero: isZero([pair2CO[key]]) }">{{pair2CO[key]}}</v-btn>  
+              <v-btn v-bind:class="{ isZero: isZero([pair3CO[key]]) }">{{pair3CO[key]}}</v-btn>  
+              <v-btn v-bind:class="{ isZero: isZero([colorOccurnce[key]]) }">{{colorOccurnce[key]}}</v-btn> 
           </v-list-tile>
           <v-divider></v-divider>
         </v-sheet>
@@ -46,18 +46,21 @@ export default {
 
       colors: ["lavender","red","blue","green","yellow","cyan","orange","purple","fuchsia",
       "GreenYellow","Brown","Teal","Gold","White","Gray","DarkSlateGray","Black",
-      "Indigo","SteelBlue","Linen","Silver",],
+      "Indigo","SteelBlue","Linen","Silver","OliveDrab","Crimson","DeepPink","DeepSkyBlue",
+      "SlateBlue","Khaki","Tomato","Lime","Aquamarine","DarkKhaki",],
 
-    pair1CO:['','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
-    pair2CO:['','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
-    pair3CO:['','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+    pair1CO:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    pair2CO:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    pair3CO:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 
-      colorOccurnce:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      colorOccurnce:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      doubleColor:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+
     };
   },
   created() {
-      this.initializePairs()
-
+      this.initializePairs(),
+      this.colorAnalysis()
   },
   methods: {
     initializePairs() {
@@ -82,6 +85,38 @@ export default {
         
       }
     },
+    colorAnalysis(){
+        for (let index = 0; index < this.colorOccurnce.length; index++) {
+            this.pair1CO[this.pair1[index][0]]++
+            this.pair1CO[this.pair1[index][1]]++
+            this.colorOccurnce[this.pair1[index][0]]++
+            this.colorOccurnce[this.pair1[index][1]]++
+
+            this.pair2CO[this.pair2[index][0]]++
+            this.pair2CO[this.pair2[index][1]]++
+            this.colorOccurnce[this.pair2[index][0]]++
+            this.colorOccurnce[this.pair2[index][1]]++
+
+            this.pair3CO[this.pair3[index][0]]++
+            this.pair3CO[this.pair3[index][1]]++
+
+            this.colorOccurnce[this.pair3[index][0]]++
+            this.colorOccurnce[this.pair3[index][1]]++
+            
+        }
+    },
+    isZero(input){
+        if (input == 0) {
+            return true
+        }
+        else return false
+    }
   }
 };
 </script>
+
+<style>
+.isZero{
+    border: 1px solid red;
+}
+</style>
