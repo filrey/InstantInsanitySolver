@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png"> <h1>Instant Insanity Sovler</h1>
+    <!-- <img alt="Vue logo" src="../assets/logo.png"> <h1>Instant Insanity Sovler</h1> -->
 
 
     <div class="parent">
