@@ -6,10 +6,16 @@
           <h1>Table Method</h1>
           <v-sheet><v-btn>Cube#</v-btn><v-btn>Pair1</v-btn><v-btn>Pair2</v-btn><v-btn>Pair3</v-btn></v-sheet>
         <v-sheet v-for="(pair, key, index) in pair1">
-          <v-list-tile > <v-btn>{{key}}</v-btn> <v-btn>[{{pair1[key][0]}}-{{pair1[key][1]}}]</v-btn> <v-btn>[{{pair2[key][0]}}-{{pair2[key][1]}}]</v-btn>  <v-btn>[{{pair3[key][0]}}-{{pair3[key][1]}}]</v-btn>  </v-list-tile>
+          <v-list-tile > 
+              <v-btn>{{key}}</v-btn> 
+              <v-btn v-on:click="toggle(selectedPair1,selectedPair1[key],key)" v-bind:class="{ isDouble: isDouble(pair1[key]), isSelect1: isSelect1(selectedPair1[key]),isSelect2: isSelect2(selectedPair1[key]) }">[{{pair1[key][0]}}-{{pair1[key][1]}}]</v-btn> 
+              <v-btn v-on:click="toggle(selectedPair2,selectedPair2[key],key)"  v-bind:class="{ isDouble: isDouble(pair2[key]), isSelect1: isSelect1(selectedPair2[key]),isSelect2: isSelect2(selectedPair2[key]) }">[{{pair2[key][0]}}-{{pair2[key][1]}}]</v-btn>  
+              <v-btn v-on:click="toggle(selectedPair3,selectedPair3[key],key)"  v-bind:class="{ isDouble: isDouble(pair3[key]), isSelect1: isSelect1(selectedPair3[key]),isSelect2: isSelect2(selectedPair3[key]) }">[{{pair3[key][0]}}-{{pair3[key][1]}}]</v-btn>  
+          </v-list-tile>
           <v-divider></v-divider>
         </v-sheet>
       </v-card>
+      <v-sheet><h1>Valid ?: {{}}</h1></v-sheet>
       <v-card><h1>Color Analysis</h1>
         <v-sheet><v-btn>Color</v-btn><v-btn>Pair1</v-btn><v-btn>Pair2</v-btn><v-btn>Pair3</v-btn><v-btn>Total</v-btn></v-sheet>
         <v-sheet v-for="(pair, key, index) in pair1CO">
@@ -33,28 +39,31 @@ export default {
     name:'Table',
   data() {
     return {
-      pair1: ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
-      pair2: ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
-      pair3: ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
-
-      input1:
+      // Array size N
+    pair1: ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+    pair2: ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+    pair3: ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+ 
+    input1:
         "11,13-4,19-13,18-11,23-5,27-12,15-10,16-2,7-4,13-11,19-7,14-17,23-12,22-23,24-3,8-9,18-1,14-14,16-25,29-18,30-4,22-5,9-11,12-9,22-22,23-15,27-4,20-8,12-11,27-17,17",
-      input2:
+    input2:
         "1,5-15,26-2,15-5,10-10,14-4,10-21,28-10,12-8,19-7,24-8,20-14,22-5,21-1,3-28,30-23,14-4,29-16,18-24,27-2,13-6,26-7,17-26,29-2,20-21,26-1,16-13,20-6,7-16,26-2,20",
-      input3:
+    input3:
         "9,19-25,30-1,9-19,26-6,24-28,29-3,21-20,29-19,24-12,25-7,30-9,24-17,30-23,27-29,30-5,8-15,28-17,28-27,28-6,22-3,6-8,16-6,11-15,25-3,25-2,21-21,25-3,13-1,10-18,18",
+    selectedPair1:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    selectedPair2:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    selectedPair3:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 
-      colors: ["lavender","red","blue","green","yellow","cyan","orange","purple","fuchsia",
-      "GreenYellow","Brown","Teal","Gold","White","Gray","DarkSlateGray","Black",
+    // Array size N+1
+    colors: ["lavender","red","blue","green","yellow","cyan","orange","purple","fuchsia",
+      "GreenYellow","Brown","Teal","Gold","White","Gray","DarkSlateGray","Plum",
       "Indigo","SteelBlue","Linen","Silver","OliveDrab","Crimson","DeepPink","DeepSkyBlue",
       "SlateBlue","Khaki","Tomato","Lime","Aquamarine","DarkKhaki",],
 
     pair1CO:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     pair2CO:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     pair3CO:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-
-      colorOccurnce:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      doubleColor:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    colorOccurnce:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 
     };
   },
@@ -110,6 +119,31 @@ export default {
             return true
         }
         else return false
+    },
+    isDouble(input) {
+        return input[0] == input[1]
+    },
+    isSelect1(input) {
+        return input == 1
+    },
+    isSelect2(input) {
+        return input == 2
+    },
+    toggle(selectedPair,currentSelection,key){
+        switch (currentSelection) {
+            case 0:
+                selectedPair[key] = 1
+                break;
+            case 1:
+                selectedPair[key] = 2
+                break;
+            case 2:
+                selectedPair[key] = 0
+                break;
+            default:
+                break;
+        }
+        this.$forceUpdate();
     }
   }
 };
@@ -118,5 +152,16 @@ export default {
 <style>
 .isZero{
     border: 1px solid red;
+}
+.isDouble{
+    border: 1px solid red;
+}
+.isSelect1{
+    border: 1px solid green;
+    background-color: Lime !important;
+}
+.isSelect2{
+    border: 1px solid blue;
+    background-color: Aqua !important;
 }
 </style>
