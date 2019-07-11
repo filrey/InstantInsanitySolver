@@ -15,7 +15,9 @@
           <v-divider></v-divider>
         </v-sheet>
       </v-card>
-      <v-sheet><h1>Valid: {{this.isValid}}</h1></v-sheet>
+      <v-sheet class="stats"><h1>Valid: {{this.isValid}}</h1>
+        <v-list-tile v-for="(pair, key, index) in answer1">{{key}} - {{answer1[key]}} - {{answer2[key]}}</v-list-tile>
+      </v-sheet>
       <v-card><h1>Color Analysis</h1>
         <v-sheet><v-btn>Color</v-btn><v-btn>Pair1</v-btn><v-btn>Pair2</v-btn><v-btn>Pair3</v-btn><v-btn>Total</v-btn></v-sheet>
         <v-sheet v-for="(pair, key, index) in pair1CO">
@@ -195,5 +197,13 @@ export default {
 .inValid{
   background-color: DarkGray !important;
   opacity: .5;
+}
+.stats{
+  position: fixed !important;
+  top: 71px;
+  right: 800px;
+  overflow-y: scroll;
+  max-height: -webkit-fill-available;
+  overflow-y: scroll;
 }
 </style>
