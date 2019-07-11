@@ -4,13 +4,46 @@
     <v-layout justify-space-around align-start>
       <v-card>
           <h1>Table Method</h1>
-          <v-sheet><v-btn>Cube#</v-btn><v-btn>Pair1</v-btn><v-btn>Pair2</v-btn><v-btn>Pair3</v-btn></v-sheet>
+          <v-sheet><v-btn>Cube#</v-btn><v-btn>Pair1</v-btn><v-btn>Pair2</v-btn><v-btn>Pair3</v-btn>  </v-sheet>
         <v-sheet v-for="(pair, key, index) in pair1" v-bind:class="{inValid: validity()}">
           <v-list-tile> 
               <v-btn>{{key}}</v-btn> 
-              <v-btn v-on:click="toggle(selectedPair1,selectedPair1[key],key,pair1)" v-bind:class="{ isDouble: isDouble(pair1[key]), isSelect1: isSelect1(selectedPair1[key]),isSelect2: isSelect2(selectedPair1[key]) }">[{{pair1[key][0]}}-{{pair1[key][1]}}]</v-btn> 
-              <v-btn v-on:click="toggle(selectedPair2,selectedPair2[key],key,pair2)"  v-bind:class="{ isDouble: isDouble(pair2[key]), isSelect1: isSelect1(selectedPair2[key]),isSelect2: isSelect2(selectedPair2[key]) }">[{{pair2[key][0]}}-{{pair2[key][1]}}]</v-btn>  
-              <v-btn v-on:click="toggle(selectedPair3,selectedPair3[key],key,pair3)"  v-bind:class="{ isDouble: isDouble(pair3[key]), isSelect1: isSelect1(selectedPair3[key]),isSelect2: isSelect2(selectedPair3[key]) }">[{{pair3[key][0]}}-{{pair3[key][1]}}]</v-btn>  
+              <v-btn v-on:click="toggle(selectedPair1,selectedPair1[key],key,pair1)" 
+                v-bind:class="{ 
+                  isDouble: isDouble(pair1[key]), 
+                  isSelect1: isSelect1(selectedPair1[key]),
+                  isSelect2: isSelect2(selectedPair1[key]),
+                  hasOneAvailable1: hasOne(pair1[key]),
+                  hasNoneAvailable1: hasNone(pair1[key]),
+                  hasOneAvailable2: hasOne2(pair1[key]),
+                  hasNoneAvailable2: hasNone2(pair1[key]),
+                  hasNoneAvailableboth: hasNoneBoth(pair1[key],isSelect1(selectedPair1[key]),isSelect2(selectedPair1[key])),  
+                  }">
+                  [{{pair1[key][0]}}-{{pair1[key][1]}}]
+                </v-btn> 
+              <v-btn v-on:click="toggle(selectedPair2,selectedPair2[key],key,pair2)"  
+                v-bind:class="{ isDouble: isDouble(pair2[key]), 
+                isSelect1: isSelect1(selectedPair2[key]),
+                isSelect2: isSelect2(selectedPair2[key]),
+                hasOneAvailable1: hasOne(pair2[key]),
+                hasNoneAvailable1: hasNone(pair2[key]),
+                hasOneAvailable2: hasOne2(pair2[key]),
+                hasNoneAvailable2: hasNone2(pair2[key]),
+                hasNoneAvailableboth: hasNoneBoth(pair2[key],isSelect1(selectedPair2[key]),isSelect2(selectedPair2[key])),  
+                }">[{{pair2[key][0]}}-{{pair2[key][1]}}]
+              </v-btn>  
+              <v-btn v-on:click="toggle(selectedPair3,selectedPair3[key],key,pair3)"  
+              v-bind:class="{ isDouble: isDouble(pair3[key]), 
+                isSelect1: isSelect1(selectedPair3[key]),
+                isSelect2: isSelect2(selectedPair3[key]),
+                hasOneAvailable1: hasOne(pair3[key]),
+                hasNoneAvailable1: hasNone(pair3[key]),
+                hasOneAvailable2: hasOne2(pair3[key]),
+                hasNoneAvailable2: hasNone2(pair3[key]),
+                hasNoneAvailableboth: hasNoneBoth(pair3[key],isSelect1(selectedPair3[key]),isSelect2(selectedPair3[key])),  
+                }">[{{pair3[key][0]}}-{{pair3[key][1]}}]
+              </v-btn>
+              <!-- <v-btn :click="resetToggle(key)">X</v-btn>   -->
           </v-list-tile>
           <v-divider></v-divider>
         </v-sheet>
@@ -52,12 +85,12 @@ export default {
         "1,5-15,26-2,15-5,10-10,14-4,10-21,28-10,12-8,19-7,24-8,20-14,22-5,21-1,3-28,30-23,14-4,29-16,18-24,27-2,13-6,26-7,17-26,29-2,20-21,26-1,16-13,20-6,7-16,26-2,20",
     input3:
         "9,19-25,30-1,9-19,26-6,24-28,29-3,21-20,29-19,24-12,25-7,30-9,24-17,30-23,27-29,30-5,8-15,28-17,28-27,28-6,22-3,6-8,16-6,11-15,25-3,25-2,21-21,25-3,13-1,10-18,18",
-    selectedPair1:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    selectedPair2:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    selectedPair3:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    selectedPair1:[2,0,0,1,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    selectedPair2:[0,1,2,2,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    selectedPair3:[1,2,1,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 
-    answer1:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    answer2:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    answer1:[0,1,0,0,1,1,0,0,0,2,1,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,1,1,1,0,0],
+    answer2:[0,0,1,1,0,1,1,0,0,0,1,1,1,1,0,2,0,0,0,0,0,1,0,0,1,1,0,0,0,0,1],
 
 
     // Array size N+1
@@ -131,6 +164,21 @@ export default {
     isDouble(input) {
         return input[0] == input[1]
     },
+    hasOne(input) {
+        return this.answer1[input[0]] < 2 && this.answer1[input[1]] < 2
+    },
+    hasNone(input) {
+        return this.answer1[input[0]] == 2 || this.answer1[input[1]] == 2
+    },
+    hasOne2(input) {
+        return this.answer2[input[0]] < 2 && this.answer2[input[1]] < 2
+    },
+    hasNone2(input) {
+        return this.answer2[input[0]] == 2 || this.answer2[input[1]] == 2
+    },
+    hasNoneBoth(input,isSelected1,isSelected2) {
+        return (this.answer2[input[0]] == 2 || this.answer2[input[1]] == 2) && (this.answer1[input[0]] == 2 || this.answer1[input[1]] == 2) && (isSelected1 == 0 && isSelected2 == 0)
+    },         
     isSelect1(input) {
         return input == 1
     },
@@ -168,7 +216,7 @@ export default {
                 selectedPair[key] = 0
                 this.answer2[pair[key][0]]--
                 this.answer2[pair[key][1]]--
-                break;
+                break;                
             default:
                 break;
         }
@@ -184,15 +232,30 @@ export default {
     border: 1px solid red;
 }
 .isDouble{
-    border: 1px solid red;
+    /* border: 1px solid Fuchsia; */
 }
 .isSelect1{
-    border: 1px solid green;
+    border: 1px solid green !important;
     background-color: Lime !important;
 }
 .isSelect2{
-    border: 1px solid blue;
+    border: 1px solid blue !important;
     background-color: Aqua !important;
+}
+.hasOneAvailable1{
+  border: 1px solid Teal;
+}
+.hasNoneAvailable1{
+  border: 1px solid red;
+}
+.hasOneAvailable2{
+  color: Teal !important;
+}
+.hasNoneAvailable2{
+  color: red !important;
+}
+.hasNoneAvailableboth{
+  opacity: 0.2;
 }
 .inValid{
   background-color: DarkGray !important;
@@ -203,7 +266,7 @@ export default {
   top: 71px;
   right: 800px;
   overflow-y: scroll;
-  max-height: -webkit-fill-available;
+  max-height: 700px;
   overflow-y: scroll;
 }
 </style>
