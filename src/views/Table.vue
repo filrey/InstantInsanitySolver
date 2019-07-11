@@ -5,17 +5,17 @@
       <v-card>
           <h1>Table Method</h1>
           <v-sheet><v-btn>Cube#</v-btn><v-btn>Pair1</v-btn><v-btn>Pair2</v-btn><v-btn>Pair3</v-btn></v-sheet>
-        <v-sheet v-for="(pair, key, index) in pair1">
-          <v-list-tile > 
+        <v-sheet v-for="(pair, key, index) in pair1" v-bind:class="{inValid: validity()}">
+          <v-list-tile> 
               <v-btn>{{key}}</v-btn> 
-              <v-btn v-on:click="toggle(selectedPair1,selectedPair1[key],key)" v-bind:class="{ isDouble: isDouble(pair1[key]), isSelect1: isSelect1(selectedPair1[key]),isSelect2: isSelect2(selectedPair1[key]) }">[{{pair1[key][0]}}-{{pair1[key][1]}}]</v-btn> 
-              <v-btn v-on:click="toggle(selectedPair2,selectedPair2[key],key)"  v-bind:class="{ isDouble: isDouble(pair2[key]), isSelect1: isSelect1(selectedPair2[key]),isSelect2: isSelect2(selectedPair2[key]) }">[{{pair2[key][0]}}-{{pair2[key][1]}}]</v-btn>  
-              <v-btn v-on:click="toggle(selectedPair3,selectedPair3[key],key)"  v-bind:class="{ isDouble: isDouble(pair3[key]), isSelect1: isSelect1(selectedPair3[key]),isSelect2: isSelect2(selectedPair3[key]) }">[{{pair3[key][0]}}-{{pair3[key][1]}}]</v-btn>  
+              <v-btn v-on:click="toggle(selectedPair1,selectedPair1[key],key,pair1)" v-bind:class="{ isDouble: isDouble(pair1[key]), isSelect1: isSelect1(selectedPair1[key]),isSelect2: isSelect2(selectedPair1[key]) }">[{{pair1[key][0]}}-{{pair1[key][1]}}]</v-btn> 
+              <v-btn v-on:click="toggle(selectedPair2,selectedPair2[key],key,pair2)"  v-bind:class="{ isDouble: isDouble(pair2[key]), isSelect1: isSelect1(selectedPair2[key]),isSelect2: isSelect2(selectedPair2[key]) }">[{{pair2[key][0]}}-{{pair2[key][1]}}]</v-btn>  
+              <v-btn v-on:click="toggle(selectedPair3,selectedPair3[key],key,pair3)"  v-bind:class="{ isDouble: isDouble(pair3[key]), isSelect1: isSelect1(selectedPair3[key]),isSelect2: isSelect2(selectedPair3[key]) }">[{{pair3[key][0]}}-{{pair3[key][1]}}]</v-btn>  
           </v-list-tile>
           <v-divider></v-divider>
         </v-sheet>
       </v-card>
-      <v-sheet><h1>Valid ?: {{}}</h1></v-sheet>
+      <v-sheet><h1>Valid: {{this.isValid}}</h1></v-sheet>
       <v-card><h1>Color Analysis</h1>
         <v-sheet><v-btn>Color</v-btn><v-btn>Pair1</v-btn><v-btn>Pair2</v-btn><v-btn>Pair3</v-btn><v-btn>Total</v-btn></v-sheet>
         <v-sheet v-for="(pair, key, index) in pair1CO">
@@ -54,6 +54,10 @@ export default {
     selectedPair2:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     selectedPair3:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 
+    answer1:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    answer2:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+
+
     // Array size N+1
     colors: ["lavender","red","blue","green","yellow","cyan","orange","purple","fuchsia",
       "GreenYellow","Brown","Teal","Gold","White","Gray","DarkSlateGray","Plum",
@@ -64,6 +68,8 @@ export default {
     pair2CO:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     pair3CO:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     colorOccurnce:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+
+    isValid: true,
 
     };
   },
@@ -129,20 +135,42 @@ export default {
     isSelect2(input) {
         return input == 2
     },
-    toggle(selectedPair,currentSelection,key){
+    checkIfValid(){
+      var result = true
+      for (let index = 0; index < this.answer1.length; index++) {
+        if (this.answer1[index] > 2 || this.answer2[index] > 2) {
+          result = false
+        }
+        
+      }
+      this.isValid = result
+    },
+    validity(){
+      return !this.isValid
+    },
+    toggle(selectedPair,currentSelection,key,pair){
         switch (currentSelection) {
             case 0:
                 selectedPair[key] = 1
+                this.answer1[pair[key][0]]++
+                this.answer1[pair[key][1]]++
                 break;
             case 1:
                 selectedPair[key] = 2
+                this.answer1[pair[key][0]]--
+                this.answer1[pair[key][1]]--
+                this.answer2[pair[key][0]]++
+                this.answer2[pair[key][1]]++
                 break;
             case 2:
                 selectedPair[key] = 0
+                this.answer2[pair[key][0]]--
+                this.answer2[pair[key][1]]--
                 break;
             default:
                 break;
         }
+        this.checkIfValid()
         this.$forceUpdate();
     }
   }
@@ -163,5 +191,9 @@ export default {
 .isSelect2{
     border: 1px solid blue;
     background-color: Aqua !important;
+}
+.inValid{
+  background-color: DarkGray !important;
+  opacity: .5;
 }
 </style>
