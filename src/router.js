@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Table from './views/Table.vue'
+import Bellman from './views/BellmanFord.vue'
+
 
 
 Vue.use(Router)
@@ -18,6 +20,11 @@ export default new Router({
       name: 'table',
       component: Table
     },
+    {
+      path: '/bellman',
+      name: 'bellman',
+      component: Bellman
+    },    
     {
       path: '/about',
       name: 'about',

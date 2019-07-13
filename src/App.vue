@@ -6,6 +6,7 @@
           <drawer-link :name="'Home'" :icon="'home'" :destination ="'/'"></drawer-link>
           <drawer-link :name="'Network Visualizer'" :icon="'graphic_eq'" :destination ="'/about'"></drawer-link>
           <drawer-link :name="'Table'" :icon="'table_chart'" :destination ="'/table'"></drawer-link>
+          <drawer-link :name="'Bellman Ford'" :icon="'table_chart'" :destination ="'/bellman'"></drawer-link>
         </v-list>
       </v-navigation-drawer>
       <v-toolbar color="primary" dark fixed app>
