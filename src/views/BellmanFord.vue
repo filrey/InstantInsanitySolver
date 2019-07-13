@@ -1,7 +1,10 @@
 <template>
     <div>
         <v-card>
-            <v-btn :click="this.relax()">Run Bellman Ford</v-btn>
+            <h1>Bellman-Ford Algorithm</h1>
+            <!-- <v-btn :click="this.relax()">Run Bellman Ford</v-btn> -->
+            <div>{{this.nodes}}</div>
+            {{this.currWeight}}
             <v-sheet v-for="(iteration, key, index) in iterations">
                 <v-list-tile>
                    {{key}} - {{iteration}}
@@ -18,7 +21,6 @@ export default {
     data(){
         return{
             size: 12,
-            inf:99999,
             //      0   1   2   3   4   5   6   7   8   9   10  11
             nodes:['s','a','b','c','d','e','f','g','h','i','j','t'],
             edges:[
@@ -74,14 +76,14 @@ export default {
                 },
                 {
                     sid: 5,
-                    tid: 8,
-                    weight:36
-                },
-                {
-                    sid: 5,
                     tid: 6,
                     weight:-29
-                },   
+                }, 
+                {
+                    sid: 5,
+                    tid: 8,
+                    weight:36
+                },                  
                 {
                     sid: 6,
                     tid: 3,
@@ -143,52 +145,38 @@ export default {
                     weight:6
                 },                                                               
             ],
-            currWeight:[0,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,],
+            currWeight:[0,'a','b','c','d','e','f','g','h','i','j','t'],
             iterations:[],
         }
     },
     created() {
-           
+        this.relax()
     },
     methods: {
-        bellmanFord(){
-            for (let index = 0; index < this.size.length; index++) {
-                this.relax()
-                
-            }
-        },
         relax(){
-            for (let index = 0; index < this.size; index++) {
+            var runTime = this.size
+            for (let index = 0; index < runTime; index++) {
                 this.updateNode(index)
-
-
-                // var source = this.edges[index].sid
-                // var target = this.edges[index].tid
-                // var w = this.edges[index].weight
-                // if (this.currWeight[source] == null) {
-                //     this.currWeight[source] = w
-                // }
-                // else{
-                //     var calculated = this.currWeight[source] + w
-                //     if (calculated < this.currWeight[target]) {
-                //         this.currWeight[target] = calculated
-                //     }
-                // }
-                
-            console.log(this.currWeight)
+                console.log(this.currWeight)
+                     
             }
-            // var relaxResult = this.currWeight
-            // this.iterations.push(relaxResult)
         },
         updateNode(currNode){
-            var edges = this.edges
-            for (let index = 0; index < edges.length; index++) {
-                    var source = edges[index].sid
-                    var target = edges[index].tid
-                    var w = edges[index].weight
+            for (let index = 0; index < this.edges.length; index++) {
+                    var source = this.edges[index].sid
+                    var target = this.edges[index].tid
+                    var w = this.edges[index].weight
                     var calculated = this.currWeight[source] + w
                 if (source == currNode) {
-                    this.currWeight[target] = Math.min(this.currWeight[target], calculated);
+                    if (typeof this.currWeight[target] === 'string') {
+                        this.currWeight[target] = w
+                    }
+                    else{
+                        var calculated = this.currWeight[source] + w
+                        if (calculated < this.currWeight[target]) {
+                            this.currWeight[target] = calculated
+                        }
+                    }
                 }
                 
             }
