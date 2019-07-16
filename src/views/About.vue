@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>D3 Network Visualization</h1>
+    <h1>Instant Insanity Tutt Graph</h1>
     <!-- <button @click="nodeMaker()">Create Nodes</button> -->
 
     <network :net-nodes="nodes" :net-links="links" :options="options"></network>

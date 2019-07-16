@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Table from './views/Table.vue'
 import Bellman from './views/BellmanFord.vue'
+import Factorial from './views/Factorial.vue'
+import MinObstacle from './views/MinObstacle.vue'
 
 
 
@@ -16,6 +18,11 @@ export default new Router({
       component: Home
     },
     {
+      path: '/minObstacle',
+      name: 'minObstacle',
+      component: MinObstacle
+    },    
+    {
       path: '/table',
       name: 'table',
       component: Table
@@ -24,7 +31,12 @@ export default new Router({
       path: '/bellman',
       name: 'bellman',
       component: Bellman
-    },    
+    },
+    {
+      path: '/factorial',
+      name: 'factorial',
+      component: Factorial
+    },            
     {
       path: '/about',
       name: 'about',

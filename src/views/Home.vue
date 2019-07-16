@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> <h1>Instant Insanity Sovler</h1> -->
-
 
     <div class="parent">
       <div v-for="(cube, key, index) in cubes">
@@ -15,18 +13,10 @@
             </div>
       </div>
 
-    <!-- <div class="cube">
-        <div class="bottom">1</div>
-        <div class="back">2</div>
-        <div class="left">5</div><div class="top">3</div><div class="right">6</div>
-        <div class="front">4</div>  
-    </div> -->
-
     </div>
       <v-btn color="blue" v-on:click="this.start">Start</v-btn>
       <v-btn color ="red" v-on:click="this.stop">Stop</v-btn>
 
-      <!-- <h1>Solution: {{this.isSolved}}</h1> -->
       <h1>BackSolved: {{this.solutionBoard[0]}}</h1>
       <h1>BottomSolved: {{this.solutionBoard[1]}}</h1>
       <h1>TopSolved: {{this.solutionBoard[2]}}</h1>
@@ -104,11 +94,6 @@ export default {
   methods: {
     start() {
       this.scrambleCube = setInterval(() => this.rotate(Math.floor(Math.random() * 3) + 1,this.cubes[Math.floor(Math.random() * this.cubes.length)]), 0);
-
-      // var scrambleCube = setInterval(function(){ 
-      //   console.log("Hello"); 
-      //   clearInterval(scrambleCube);}
-      //   , 1000);
     },
     stop(){
 
